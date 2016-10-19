@@ -49,3 +49,40 @@ Run the server and client examples: `./https_examples`
 
 Direct your favorite browser to for instance https://localhost:8080/
 
+## AWS Install
+```
+#boost:
+sudo apt-get install libboost-all-dev
+
+#ssl:
+sudo apt-get install libssl-dev
+
+#C++: (gcc doesn't handle C++ on Ubuntu by default)
+sudo apt-get install gcc g++
+
+#cmake: (was already installed - so remove and install)
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:george-edison55/cmake-3.x
+sudo apt-get remove cmake
+sudo apt-get install cmake
+sudo apt-get upgrade
+
+#clone the repo:
+git clone https://github.com/tzaffi/Simple-Web-Server.git
+
+#compile with cmake and make:
+cd Simple-Web-Server
+cmake .
+make
+
+#make a local log directory (for the Ubuntu branch):
+mkdir ~/log
+
+#run the binary:
+./jsonEchoAndLog &
+
+#view the logs
+cd ..
+ls log
+```
+
