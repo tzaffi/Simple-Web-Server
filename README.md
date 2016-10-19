@@ -70,8 +70,9 @@ sudo apt-get upgrade
 #clone the repo:
 git clone https://github.com/tzaffi/Simple-Web-Server.git
 
-#compile with cmake:
+#compile with cmake and make:
 cd Simple-Web-Server
 cmake .
+make
 ```
 
