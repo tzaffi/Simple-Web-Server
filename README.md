@@ -74,5 +74,15 @@ git clone https://github.com/tzaffi/Simple-Web-Server.git
 cd Simple-Web-Server
 cmake .
 make
+
+#make a local log directory (for the Ubuntu branch):
+mkdir ~/log
+
+#run the binary:
+./jsonEchoAndLog &
+
+#view the logs
+cd ..
+ls log
 ```
 
