@@ -20,10 +20,10 @@ typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 typedef SimpleWeb::Client<SimpleWeb::HTTP> HttpClient;
 
 int main() {
-    //HTTP-server at port 8080 using 1 thread
+    //HTTP-server at port 80 using 1 thread
     //Unless you do more heavy non-threaded processing in the resources,
     //1 thread is usually faster than several threads
-    HttpServer server(8080, 1);
+    HttpServer server(80, 1);
 
     //Default GET/POST/PUT-example. If no other matches, this anonymous function will be called.
     //Will respond with content in the web/-directory, and its subdirectories.
@@ -52,7 +52,7 @@ int main() {
 
             boost::filesystem::path dir("path");
 
-            std::string logDir = "/Users/zeph/ClionProjects/Simple-Web-Server/log/";
+            std::string logDir = "/home/ubuntu/log/";
             std::ofstream ofs(logDir + timeStamp + ".log", std::ofstream::out);
             ofs << json << std::endl;
             ofs.close();
@@ -76,7 +76,7 @@ int main() {
     this_thread::sleep_for(chrono::seconds(1));
     
     //Client examples
-    HttpClient client("localhost:8080");
+    HttpClient client("localhost:80");
     auto r1=client.request("GET", "/match/123");
     cout << r1->content.rdbuf() << endl;
 
