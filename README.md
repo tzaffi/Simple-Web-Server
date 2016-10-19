@@ -49,3 +49,19 @@ Run the server and client examples: `./https_examples`
 
 Direct your favorite browser to for instance https://localhost:8080/
 
+#### AWS Install
+```
+#boost:
+sudo apt-get install libboost-all-dev
+
+#cmake: (was already installed - so remove and install)
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:george-edison55/cmake-3.x
+sudo apt-get remove cmake
+sudo apt-get install cmake
+sudo apt-get upgrade
+
+#clone the repo:
+git clone https://github.com/tzaffi/Simple-Web-Server.git
+```
+
