@@ -49,7 +49,7 @@ Run the server and client examples: `./https_examples`
 
 Direct your favorite browser to for instance https://localhost:8080/
 
-#### AWS Install
+## AWS Install
 ```
 #boost:
 sudo apt-get install libboost-all-dev
