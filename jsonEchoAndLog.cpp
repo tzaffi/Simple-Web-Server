@@ -37,8 +37,13 @@ int main() {
             dateCstr[0] = '\0';
             now = time(NULL);
             strftime(dateCstr, tsLength, "%Y-%m-%d_%H-%M-%S", gmtime(&now));
-            std::string timeStamp = dateCstr;
-            timeStamp += "GMT";
+
+	    chrono::milliseconds ms = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch());
+	    int suffixNum = ms.count() % 1000;	    
+
+	    std::stringstream tsBuf;
+	    tsBuf << dateCstr << "." << suffixNum << "GMT";
+	    std::string timeStamp = tsBuf.str();
 
             std::stringstream jsonBuf;
             jsonBuf << "{"
