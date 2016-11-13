@@ -12,7 +12,7 @@ const char *htmlFormat =
         "<ol style=\"list-style: none; font-size: 14px; line-height: 32px; font-weight: bold;\">\n"
         "<li style=\"clear: both;\">You entered <em><span style=\"background-color: #ffff00;\">%.6g</span></em>&nbsp;"
         "[at the&nbsp;end of the url "
-        "<a href=\"http://www.tzaffi.xyz/ruleof72?2\">www.tzaffi.xyz/ruleof72?<span style=\"background-color: #ffff00;\">%.6g</span></a>]"
+        "<a href=\"http://www.tzaffi.xyz/ruleOf72?%.6g\">www.tzaffi.xyz/ruleof72?<span style=\"background-color: #ffff00;\">%.6g</span></a>]"
         "</li>\n"
         "<li style=\"clear: both;\">(It&nbsp;<em>could be that you meant the number of&nbsp;"
         "<span style=\"color: #ff6600;\">years</span> for an investment to double or the annual percentage "
@@ -63,6 +63,7 @@ std::string RuleOf72::report(double yearsOrRate) {
     std::snprintf(buffer, 2*L, htmlFormat,
                   yearsOrRate,
                   yearsOrRate,
+                  yearsOrRate,
                   ro72answer,
                   yearsOrRate,
                   realRate,
@@ -71,5 +72,5 @@ std::string RuleOf72::report(double yearsOrRate) {
                   realYears,
                   realYearsDiff
     );
-    return std::string(buffer) + "\n<!--- \n\n\nL = " + std::to_string(L) + "\n\n\n-->";
+    return std::string(buffer);
 }
