@@ -16,3 +16,4 @@ https_examples
 io_test
 parse_test
 jsonEchoAndLog
+libs/RuleOf72_test
