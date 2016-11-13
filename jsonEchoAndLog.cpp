@@ -14,6 +14,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "libs/RuleOf72.h"
+
 using namespace std;
 //Added for the json-example:
 using namespace boost::property_tree;
@@ -46,6 +48,25 @@ int main() {
         }
     };
 
+
+    //my RuleOf72 server:
+    server.resource["^/ruleOf72([?].+)"]["GET"]=[&server](shared_ptr<HttpServer::Response> resp, shared_ptr<HttpServer::Request> req)
+    {
+        RuleOf72 ro72;
+        string message = "TBD";
+        string path = req->path;
+        std::size_t idx = path.find("?");
+        try {
+            string numStr = path.substr(idx + 1, path.size() - idx - 1);
+            message = numStr;
+            double num = std::stod(numStr);
+            message = ro72.report(num);
+            *resp << "HTTP/1.1 200 OK\r\nContent-Length: " << message.length() << "\r\n\r\n" << message;
+        } catch(const exception &e) {
+            string content= "message: "+message+"\nProblem: "+e.what();
+            *resp << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << content.length() << "\r\n\r\n" << content;
+        }
+    };
 
     //Default GET/POST/PUT-example. If no other matches, this anonymous function will be called.
     //Will respond with content in the web/-directory, and its subdirectories.
