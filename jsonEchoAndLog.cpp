@@ -25,6 +25,13 @@ int main() {
     //1 thread is usually faster than several threads
     HttpServer server(8080, 1);
 
+    //my RuleOf72 server:
+    server.resource["^/ruleOf72[$?]?"]["GET"]=[&server](shared_ptr<HttpServer::Response> resp, shared_ptr<HttpServer::Request> req)
+    {
+        string message= "TESTING 123, TESTING";
+        *resp << "HTTP/1.1 200 OK\r\nContent-Length: " << message.length() << "\r\n\r\n" << message;
+    };
+
     //Default GET/POST/PUT-example. If no other matches, this anonymous function will be called.
     //Will respond with content in the web/-directory, and its subdirectories.
     //Default file: index.html
