@@ -1,6 +1,8 @@
 #include "server_http.hpp"
 #include "client_http.hpp"
 
+#include "libs/RuleOf72.h"
+
 //Added for the json-example
 #define BOOST_SPIRIT_THREADSAFE
 #include <boost/property_tree/ptree.hpp>
@@ -24,6 +26,26 @@ int main() {
     //Unless you do more heavy non-threaded processing in the resources,
     //1 thread is usually faster than several threads
     HttpServer server(80, 1);
+
+    //my RuleOf72 server:
+    server.resource["^/ruleOf72([?].+)"]["GET"]=[&server](shared_ptr<HttpServer::Response> resp, shared_ptr<HttpServer::Request> req)
+    {
+        RuleOf72 ro72;
+        string message = "TBD";
+        string path = req->path;
+        std::size_t idx = path.find("?");
+        try {
+            string numStr = path.substr(idx + 1, path.size() - idx - 1);
+            message = numStr;
+            double num = std::stod(numStr);
+            message = ro72.report(num);
+            *resp << "HTTP/1.1 200 OK\r\nContent-Length: " << message.length() << "\r\n\r\n" << message;
+        } catch(const exception &e) {
+            string content= "message: "+message+"\nProblem: "+e.what();
+            *resp << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << content.length() << "\r\n\r\n" << content;
+        }
+    };
+
 
     //Default GET/POST/PUT-example. If no other matches, this anonymous function will be called.
     //Will respond with content in the web/-directory, and its subdirectories.

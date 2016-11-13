@@ -43,7 +43,7 @@ add_executable(http_examples http_examples.cpp)
 target_link_libraries(http_examples ${Boost_LIBRARIES})
 target_link_libraries(http_examples ${CMAKE_THREAD_LIBS_INIT})
 
-add_executable(jsonEchoAndLog jsonEchoAndLog.cpp)
+add_executable(jsonEchoAndLog jsonEchoAndLog.cpp libs/RuleOf72.cpp libs/RuleOf72.h)
 target_link_libraries(jsonEchoAndLog ${Boost_LIBRARIES})
 target_link_libraries(jsonEchoAndLog ${CMAKE_THREAD_LIBS_INIT})
 
@@ -55,5 +55,7 @@ endif()
 
 enable_testing()
 add_subdirectory(tests)
+
+add_subdirectory(libs)
 
 install(FILES server_http.hpp client_http.hpp server_https.hpp client_https.hpp DESTINATION include/simple-web-server)
